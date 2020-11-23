@@ -1,0 +1,93 @@
+---
+title: "Slides in the classroom"
+author: "Put your name here"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output: 
+  powerpoint_presentation:
+    reference_doc: refer.pptx
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## R Markdown
+
+This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
+
+## Slide with Bullets
+
+- Bullet 1
+- Bullet 2
+- Bullet 3
+
+
+## Statistics to compute
+
+1. Mean
+1. Standard deviation
+1. Variance
+1. Range
+1. Max and Min
+
+## Slide with R Output
+
+```{r cars, echo = TRUE}
+summary(cars)
+mcar <- mean(cars$speed)
+```
+
+### Using calculated values in the slides.
+
+The mean of the the Speed column is `r mcar`.
+
+## Slide with Plot
+
+```{r pressure}
+plot(pressure)
+```
+
+## Equations
+
+$$
+s^2 = \frac{\sum\limits_{i =1}^N (x_i - \bar{x})^2}{N - 1}
+$$
+
+## Equations II
+
+### Create an aligned equation environment
+\begin{align}
+s^2 & = \frac{\sum\limits_{i =1}^N (x_i - \bar{x})^2}{N - 1}\\
+s^2 & = \frac{\sum\limits_{i =1}^N (x_i - \bar{x})^2}{N - 1}\\
+s^2 & = \frac{\sum\limits_{i =1}^N (x_i - \bar{x})^2}{N - 1}
+\end{align}
+
+\structure{Answers}
+Rather easy to create these
+
+
+## Creating Tables
+
+Col1       Col2              Col3
+------    ----------    ---------
+January    Free          Day
+February   Reel          Fish
+March      Hotness       Cold^[Very]
+------    ----------    ---------
+
+Table: My Dataset
+
+Included a footnote here... 
+
+\structure{Issue}
+- Tables and images appear on separate slides.
+
+## {.plain}
+
+### Plain slide. 
+
+Great for full page graphics etc.
+
+

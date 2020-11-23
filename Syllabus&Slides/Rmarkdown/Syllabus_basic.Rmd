@@ -1,0 +1,166 @@
+---
+title: "Syllabus for the Classroom"
+author: "Put your name here"
+date: "Fall 2020"
+
+# email: celt_r_group@vt.edu
+# web: "canvas.vt.edu"
+# office: "Virtual"
+# officehours: "*by Appointment - please feel free to email*"
+# classroom: 'On Zoom'
+# classhours: "MW 2:30 -- 03:45 PM"
+# 
+# TA: "Who Ever"
+# TA_email: whoever@vt.edu
+# TA_officehours: 
+# TA_office: 
+
+# fontfamily: helvet
+fontsize: 10pt
+
+output: 
+  pdf_document:
+    keep_tex: no
+    # template: Syllabus_template.tex
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Course Description
+
+Insert description here
+
+# Course Objectives
+
+Upon completion of this course, students should be able to:
+
+-	identify 
+-	estimate and interpret;
+-	estimate;
+-	formulate ;
+-	apply;
+-	analyze.
+
+# Required Text
+
+__THERE IS NO REQUIRED TEXT FOR THIS CLASS__.
+
+
+
+# Class Preparation
+
+Come prepared.
+
+__Students are strongly advised to set up office hours appointments, with me or the TA, the moment they sense that they are falling behind and need help understanding the material.__
+
+
+# Class Attendance and Participation
+
+I do not have a mandatory attendance requirement for this class. 
+
+# Course Website
+
+Please check Canvas before every class to make sure you are aware of what is going on. 
+
+# Professional Policy
+
+Put language here about Zoom!
+
+# Academic Integrity
+
+Students are expected to abide by the Virginia Tech Honor Code of Academic Conduct. The Undergraduate Honor Code pledge that each member of the university community:
+
+>> As a Hokie, I will conduct myself with honor and integrity at all times. I will not lie, cheat, or steal, nor will I accept the actions of those who do.
+
+Violations of this code will result in a grade of "F" in the course. Ignorance of the rules is not an excuse.
+For further info, please visit: https://www.honorsystem.vt.edu/.
+
+You are allowed (and it is highly encouraged) to work on homework problems in groups. **However, your homework answers and analysis should be written in your own words**. Any duplication of either is a violation of the Honor code and will be treated as such. In your class project, take care to cite sources for data etc.
+
+# Grading Policy
+
+Your final course grade will be determined by your quiz, homework, exam, and project grades.
+
+## Grade Components
+
+-	Quizzes \& In-class Activities (10\%)
+-	Homework assignments (30\%)
+-	Exams (35\%)
+-	Term project (25\%)
+
+Your letter grades will be assigned as follows:
+
+A	> 92	    A-	90-92	    B+	87-89	    B	83-86	    B- 80--82	     C+ 77-79
+---------	 ------------	------------	------------ --------------  --------------
+C	73-76	    C-	70-72	    D+	67-69	    D	63-66	    D- 60-62	       F	<60
+---------	 ------------	------------	------------ --------------  --------------
+
+I will **ROUND UP** your final grades but please do not anticipate any further grade adjustments!
+
+## Quizzes \& In-class Activities
+
+Details here
+
+## Homework
+
+Your homework assignments will be posted on Canvas. These assignments are usually due after we complete each topic in class. I will announce in class when assignments will be (or are) posted. Otherwise, please check Canvas for the due dates.
+
+# Regrades
+
+If you feel that you were unfairly graded on any assessment for this course, you have until the subsequent class period after the quiz/exam/homework is returned to submit a re-grade request. Requesting a re-grade in no way assures you will receive additional points.
+
+
+# Exams
+
+Two 50-minute closed-book exams will be given during the semester. Exam dates will be announced.
+
+# Term Project
+
+Put details here!
+
+\newpage
+
+## Tentative Course Outline
+
+The instructor reserves the right to change the dates and topics depending on the pace of the class and/or concepts that students find particularly interesting or challenging. Prior notification will be provided however, if any detail below were to change.
+
+Week	 Date	     Topic	                                                    Remarks
+-----	---------	 --------------------------------------------------------  ------------------	
+1	      20-Jan	        Introduction  	
+2	      25-Jan	        Review of Statistics	 
+2	      27-Jan	        Review of Statistics	 
+3	      1-Feb          Introduction to Excel	 
+3       3-Feb          Introduction to Excel	 
+4	      8-Feb          Simple Linear Regression	 
+4	      10-Feb         Simple Linear Regression	 
+5	      15-Feb	        Multiple Linear Regression	 
+5	      17-Feb	        Multiple Linear Regression	
+6	      22-Feb	        Multiple Linear Regression	
+6	      24-Feb	        Multiple Linear Regression	
+7	      1-Mar		        **Leave open for now**
+7	      3-Mar          Collecting & Analyzing Economic Data	
+8	      8-Mar	        Collecting & Analyzing Economic Data	
+8	      10-Mar	        Demand & Supply Quantities and Elasticity	
+9	      15-Mar	        Demand & Supply Quantities and Elasticity	
+9	      17-Mar	        SPRING BREAK DAY	
+10	    22-Mar	        Optimization and Linear Programming	
+10	    24-Mar	        Optimization and Linear Programming	
+11	    29-Mar	        Optimization and Linear Programming	
+11	    31-Mar	        Time Series Forecasting	
+12	    5-Apr	        Time Series Forecasting	
+12	    7-Apr	        Time Series Forecasting	
+13	    12-Apr	        Risk Analysis	
+13	    14-Apr	        Risk Analysis	
+14	    19-Apr	        Risk Analysis	
+14	    21-Apr		      **Leave open for now**
+15	    26-Apr	        SPRING BREAK DAY	
+15	    28-Apr		       **Leave open for now**
+16	    3-May	        Brief Intro to Excel VBAs	
+	      5-May          Brief Intro to Excel VBAs	
+	      7-May	        FINAL PROJECT DUE	
+-----	---------	 --------------------------------------------------------  ------------------	
+
+

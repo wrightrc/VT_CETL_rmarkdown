@@ -1,0 +1,108 @@
+---
+title: "Slides in the classroom"
+author: "Put your name here"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output:
+  ioslides_presentation:
+    widescreen: true
+    smaller: true
+    logo: vt.jpg
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Changing font sizes?. (title) | Yes, we can do it. (subtitle)
+
+`<font size="xxx"> Blurb!</font>`
+
+- <font size="1"> Blurb!</font>
+- <font size="2"> Blurb!</font>
+- <font size="3"> Blurb!</font>
+- <font size="4"> Blurb!</font>
+- <font size="5"> Blurb!</font>
+
+## Controls | Good to know
+
+The following single character keyboard shortcuts enable alternate display modes:
+
+- 'f' enable fullscreen mode
+
+- 'w' toggle widescreen mode
+
+- 'o' enable overview mode
+
+- 'h' enable code highlight mode
+
+- 'p' show presenter notes
+
+
+### Here's texts
+<div class="red2">
+This text is some red text!
+</div>
+
+
+## Slide with Bullets|Speaker's Notes added {.build} 
+
+Content will be displayed incrementally using the `{.build}` funcion. 
+
+For example:
+
+- Bullet 1
+- Bullet 2
+- Bullet 3
+
+<div class="notes">
+This is my *note*.
+
+- I need to remember all that came to present today.
+- Privately view your speaker's notes by adding `?presentme=true` to the presentation's html:
+  - Example: `mypresentation.vt.html?presentme=true`
+</div>
+
+
+## Highlighting Portion of Code for audience! 
+
+Use `h` to highlight portions of the code for the audience to follow better.
+
+```{r,echo=TRUE}
+x <- 10
+y <- x * 2
+```
+
+## Slide with R Output
+
+```{r cars, echo = TRUE}
+summary(cars)
+mcar <- mean(cars$speed)
+```
+
+### Using calculated values in the slides.
+
+The mean of the the Speed column is `r mcar`.
+
+## Slide with Plot
+
+```{r pressure}
+plot(pressure)
+```
+
+## Equations
+
+$$
+s^2 = \frac{\sum\limits_{i =1}^N (x_i - \bar{x})^2}{N - 1}
+$$
+
+## Creating Tables
+
+Col1       Col2              Col3
+------    ----------    ---------
+January    Free          Day
+February   Reel          Fish
+March      Hotness       Cold^[Very]
+------    ----------    ---------
+
+Table: My Dataset
+
