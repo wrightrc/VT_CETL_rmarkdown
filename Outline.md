@@ -57,8 +57,6 @@ An easy approach
 - Using parameters to create quizzes
     - Include `params` in your yaml header to exclude code and solution/key code blocks
 
-Interactive lessons with markdown
-========================================================
 
 ```yaml
 params:
@@ -66,21 +64,31 @@ params:
   code: TRUE
 ```
 
+
 Interactive lessons with markdown
 ========================================================
 An easy approach
 - Using parameters to create quizzes
     - Include `params` in your yaml header to exclude code and solution/key code blocks
-    - In the setup chunk create
+    - In the setup chunk create an "answer" chunk knit engine
 
-Interactive lessons with markdown
-========================================================
 
 ```r
 knit_engines$set(answer = function(options) {
   if (options$include && options$echo && options$eval) knit_child(text = options$code)
 })
 ```
+
+
+Interactive lessons with markdown
+========================================================
+````
+```{answer, include = params$key, eval = FALSE}
+$$\frac{dS}{dt} = K_M a (S_0 - S) - \frac{\mu_m}{Y_{X/S}^M}\frac{XS}{K_S + S}$$
+$$\frac{dS}{dt} = K_M a (S_0 - S) - k\frac{XS}{K_S + S}$$
+``
+```
+
 
 
 Interactive lessons with markdown
