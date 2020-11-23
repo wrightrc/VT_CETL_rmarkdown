@@ -1,0 +1,185 @@
+# Immobilized Enzyme Kinetics 
+
+Bird excrement (guano) is an abundant source of nitrogen in the form of uric acid. We want to use this as nitrogen source to feed a bioreactor but find the uric acid isn't optimum for the microbe we are trying to grow. 
+
+## Uric acid to urea
+
+Uric acid is converted to urea by a uricase enzyme immobilized in porous Ca-alginate beads. Experiments conducted with different bead diameters ($D_p$) result in the following rate ($\nu$) data:
+```{r particle-diameter}
+require(tidyverse)
+D_p <- c(0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8) #(cm)
+v <- c(200, 200, 198, 180,140, 100, 70, 50, 30) # (mg/L-h)
+particle_D <- tibble(D_p = D_p, v = v)
+#write.csv(particle_D, "uricase-beads-diameter.csv")
+knitr::kable(particle_D, caption = "Reaction velocity, 
+             $v$, (mg/L-h) with increasing particle 
+             diameter, $D_p$, (cm) for uricase loaded 
+             porous Ca-aliginate beads.", format = "latex", 
+             booktabs = T, align = "c") %>%
+kableExtra::kable_styling(latex_options = "hold_position")
+```
+
+#### ???Questions??? 
+
+How would you determine the effectiveness factor for particle sizes $D_p$ = 0.5 cm and $D_p$ = 0.7 cm.
+
+***  
+
+The effectiveness factor describes the effect of diffusion limitation on a reaction.
+$$\eta = \frac{\text{reaction rate with diffusion limitation}}{\text{reaction rate without diffusion limitation}}$$
+So we need to find both the reaction rate without diffusion limitation and then the reaction rate at $D_p$ = 0.5 cm and $D_p$ = 0.7 cm, assuming these particles are large enough to limit diffusion. 
+
+To find the reaction rate without diffusion limitation we need to plot the given data and see at what particle diameter reaction velocity begins to drop. 
+
+```{r particle-diameter-plot, fig.cap="Diffusion limitation with increasing bead diameter"}
+ggplot(data = particle_D, mapping = aes(x = D_p, y = v)) + 
+  geom_point() + 
+  labs(y = "Reaction velocity (mg/L-hr)", 
+       x = "Bead diameter (cm)")
+```
+Based on this plot we see that really the first three points, but definitely the first two, do not show any diffusion limitation. So the reaction rate without limitation is 200 (mg/L-h). 
+
+Now to calculate the effectiveness factor at $D_p$ = 0.5 and 0.7 can we simply divide the rates at these particle sizes by the unlimited rate.  
+$\eta_{0.5} = 100 / 200 = 0.5$  
+$\eta_{0.7} = 50 / 200 = 0.25$  
+
+#### ???Questions??? 
+
+The following data were obtained for $D_p$ = 0.5 cm at different bulk uric acid concentrations. Assuming negligible liquid film resistance, due to turbulent flow around the beads, calculate $V_m$ and $K_m$ for the immobilized enzyme. Assume no substrate or product inhibition. 
+```{r substrate-q}
+S_0 <- c(10, 25, 50, 100, 200, 250) # (mg/L)
+v_0.5 <- c(10, 20, 30, 40, 45, 46) # (mg/L-h)
+substrate <- tibble(S_0 = S_0, v_0.5 = v_0.5)
+#write.csv(substrate, "uricase-beads-substrate.csv")
+knitr::kable(substrate, caption = "Reaction velocity, 
+             $\nu$, (mg/L-h) for $D_p = 0.5$ (cm) 
+             uricase loaded porous Ca-aliginate beads 
+             versus initiat substrate, uric acid, 
+             concentration, $S_0$ (mg/L).", 
+             format = "latex", booktabs = T, 
+             align = "c") %>%
+kableExtra::kable_styling(latex_options = "hold_position")
+```
+
+***  
+
+Assuming negligible film resistance, $S_{bulk} = S_{surface}$. We can determine the rates without diffusional limitation within the beads from the effectiveness factor:
+
+$$v_0 = \frac{v_{0.5}}{\eta_{0.5}}$$
+```{r}
+substrate$v_0 <- substrate$v_0.5 / 0.5
+```
+
+Now we can use a Hanes-Woolf plot or nonlinear regression to find the kinetic parameters.  
+Hanes-Woolf: $\frac{S}{\nu} = \frac{K_m}{V_m} + \frac{1}{V_m}S$  
+Plot S/V vs S to obtain the following:  
+```{r HW-uricase}
+substrate$HW.y <- substrate$S_0 / substrate$v_0
+ggplot(data = substrate, mapping = 
+         aes(x= S_0, y = S_0 / v_0)) + geom_point() + 
+  geom_smooth(method = "lm")
+HW_uricase <- lm(HW.y ~ S_0, data = substrate)
+summary(HW_uricase)
+V_m <- 1 / HW_uricase$coefficients[['S_0']]
+K_m <- HW_uricase$coefficients[['(Intercept)']] * V_m
+```  
+From the slope we find that $V_m = `r signif(V_m, 2)`$ mg/L-h and from the y-intercept we find $K_m = `r signif(K_m, 2)`$ mg/L.  
+
+*Now we can size our uricase reactor using these parameters.*
+
+## Urea to ammonia
+
+The urea released from this first reactor needs to be further broken down to ammonium, that our bugs can utilize. We have a source of the enzyme urease immobilized in Ca-alginate beads 2 mm in diameter. When the urea concentration in the bulk liquid is 0.5 mM, the rate of urea hydrolysis is $\nu =$ 10 mmol/L-h. Diffusivity of urea in Ca-alginate beads is $D_e = 1.5 \times 10^{-5} \text{cm}^2/\text{sec}$, and the Michaelis constant for the enzyme is $K_m = 0.2$ mM. 
+
+#### ???Questions??? 
+
+Again assuming no liquid film resistance on the beads (i.e., $[S_0] = [S_s]$) determine the maximum rate of hydrolysis $V_m$, Thiele modulus ($\phi$), and effectiveness factor ($\eta$).
+
+Hint: Assume that $\eta \approx 3/\phi$ for large values of $\phi$, $(\phi>5)$.
+
+***
+
+Is the hint a good assumption? What is the formula for the effectiveness factor based on the Thiele modulus for spheres?
+$\eta = \frac{3}{\phi} \left( \frac{1}{\tanh(phi)} - \frac{1}{\phi} \right)$
+Let's plot this function and $\eta = 3/\phi$ to see how much the differ. 
+```{r}
+phi <- seq(0,100, 1)
+eta <- 3/phi * (1/tanh(phi) - 1/phi)
+plot(1/phi, eta) + abline(a = 0, b = 3) + abline(v = 1/5, col = "red")
+```
+The approximation is only off by less than 10% in this range, so not bad.
+
+Hmm this is tricky! We are looking for $V_m$, $\eta$, and $\phi$, and they all are related to one another. Perhaps if we write out all of the relations that we know we can solve them as a system of equations.  
+
+Let's start with the rate equation since we are given a velocity.
+$$\nu = \eta \frac{V_mS_0}{K_m + S_0}$$
+Plugging in what we know gives:
+$$10 \text{ mmol/L-h} = \eta  \frac{V_m\cdot0.5}{0.2 + 0.5}$$
+$$\eta V_m = 14 \text{ mmol/L-h}$$
+We can also use the definition of the Thiele modulus since we are given an effective diffusivity (effective diffusivity for many small molecules in many polymer matrices can be found in the literature). 
+$$\phi = R \sqrt{\frac{V_m}{K_m D_e}}$$
+$$\phi = 0.1 \text{ cm} \sqrt{\frac{V_m}{0.2 \text{ mM} \cdot 1.5 \times 10^{-5} \text{ cm}^2/\text{sec} \cdot 3600 \text{ s}/\text{hr}}}$$
+Don't forget our $\nu$ has units of mmol/L-h, so we need to do a unit conversion. This simplifies to
+$$\phi = 1.04\sqrt{V_m}$$
+
+Our final relationship (3 equations are needed to find 3 variables, right?) is our assumption that $\eta \approx 3/\phi$ therefore
+$$\eta\phi = 3$$
+
+To solve this equation we can multiply the first and second equations by each other, yielding
+$$\phi \eta V_m = 14.55 \sqrt{V_m}$$ 
+and since $\phi \eta \approx 3$, 
+
+$$3V_m = 14.55\sqrt{V_m}$$
+$$9V_m^2 - 211.7V_m = 0$$ 
+This quadratic can be solved with the quadratic formula
+```{r}
+(211.7 + sqrt(211.7^2) ) / (2*9)
+(211.7 - sqrt(211.7^2) ) / (2*9)
+```
+Since we are given a velocity higher than the second root, we know the first root must be correct.$V_m = 23.5$ mmoles/L-h  
+So now we can calculate $\eta = 14/23.5 = 0.595$ and $\phi = 3/0.595 = 5.04$ from our second and third equations.  
+
+#### ???Questions??? 
+
+We have also found a supplier of 4 mm beads, that performed similarly in our initial rate experiment (urea concentration in the bulk liquid is 0.5 mM, the rate of urea hydrolysis is $\nu =$ 10 mmol/L-h). What are the $V_m$, $\phi$, and $\eta$ values for a particle size of $D_p$ = 4 mm? 
+
+***
+
+$\eta V_m = 14$ still, but we must recalculate the other equations. 
+$$\phi = 0.2 \sqrt{\frac{V_m}{0.2 \cdot 1.5 \times 10^{-5} \cdot 3600 \text{ s}/\text{hr}}}$$
+$$\phi = 2.08\sqrt{V_m}$$
+$$\phi \eta V_m = 26.95\sqrt{V_m}$$
+$$9V_m^2 - 726.3V_m = 0$$
+```{r}
+(726.3 + sqrt(726.3^2) ) / (2*9)
+
+```
+
+$V_m = 80.7$ mmoles/L-h
+$$\eta = 14/80.7 = 0.173$$  
+$$\phi = 3/0.173 = 17.3$$  
+
+#### ???Questions??? 
+
+Which particle would you choose to run the reactor?
+
+***
+
+Comparing the kinetic and diffusion parameters 
+$D_p = 2 \text{ mm}$  
+$V_m = 23.5$ mmoles/L-h  
+$\eta = 14/23.5 = 0.595$  
+$\phi = 3/0.595 = 5.04$  
+
+$D_p = 4 \text{ mm}$  
+$V_m = 80.7$ mmoles/L-h  
+$\eta = 14/80.7 = 0.173$ 
+$\phi = 3/0.173 = 17.3$  
+we can see that the 4 mm particles must have more enzyme in them since their $V_m$ is higher. 
+However, their effectiveness factor is much lower, so the reaction rate is slowed much more because of diffusion into these particles. Since we want to convert as much of the urea to ammonia as possible, using the 2 mm beads will be better since they will have more surface area for low concentrations of urea to diffuse across (as concentration decreases the concentration gradient, which is the driving force for diffusion also decreases).
+
+
+
+
+
+
